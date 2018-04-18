@@ -25,6 +25,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.DrawableRes;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -207,8 +208,8 @@ public class KProgressHUD {
      *
      * @return Current HUD
      */
-    public KProgressHUD setLoadingImage(Drawable drawable) {
-        mProgressDialog.setLoadingImage(drawable);
+    public KProgressHUD setLoadingImage(@DrawableRes int drawableRes) {
+        mProgressDialog.setLoadingImage(drawableRes);
         return this;
     }
 
@@ -364,7 +365,8 @@ public class KProgressHUD {
         private ImageView mImageLabel;
         private String mLabel;
         private String mDetailsLabel;
-        private Drawable drawable;
+        private @DrawableRes
+        int drawableRes = -1;
         private int mWidth, mHeight;
         private int mLabelColor = Color.parseColor("#3A0137");
         private int mDetailColor = Color.parseColor("#3A0137");
@@ -455,13 +457,13 @@ public class KProgressHUD {
             }
         }
 
-        public void setLoadingImage(Drawable drawable) {
-            this.drawable = drawable;
+        public void setLoadingImage(@DrawableRes int drawableRes) {
+            this.drawableRes = drawableRes;
             if (mImageLabel != null) {
-                if (drawable != null) {
+                if (drawableRes == -1) {
                     Glide.with(getContext())
                             .asGif()
-                            .load(drawable)
+                            .load(drawableRes)
                             .into(mImageLabel);
                     mImageLabel.setVisibility(View.VISIBLE);
                 } else {
