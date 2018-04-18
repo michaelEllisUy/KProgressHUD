@@ -87,14 +87,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 hud = KProgressHUD.create(this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setLabel("Please wait")
-                        .setCancellable(new DialogInterface.OnCancelListener()
-                        {
-                            @Override public void onCancel(DialogInterface
-                                dialogInterface)
-                            {
+                        .setCancellable(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface
+                                                         dialogInterface) {
                                 Toast.makeText(MainActivity.this, "You " +
-                                    "cancelled manually!", Toast
-                                    .LENGTH_SHORT).show();
+                                        "cancelled manually!", Toast
+                                        .LENGTH_SHORT).show();
                             }
                         });
 
@@ -166,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             int currentProgress;
+
             @Override
             public void run() {
                 currentProgress += 1;

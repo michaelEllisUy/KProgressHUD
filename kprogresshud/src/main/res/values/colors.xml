@@ -2,4 +2,8 @@
 <resources>
     <color name="kprogresshud_default_color">#b1000000</color>
     <color name="kprogresshud_grey_color">#449E9E9E</color>
+    <color name="colorPrimary">#3A0137</color>
+    <color name="colorPrimaryDark">#290425</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentWithTransparency">#80FF4081</color>
 </resources>

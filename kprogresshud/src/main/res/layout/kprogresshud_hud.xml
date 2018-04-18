@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kaopiz.kprogresshud.BackgroundLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/background"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@android:color/transparent"
-    android:gravity="center"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="20dp" />
 
-    <TextView
-        android:id="@+id/label"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"/>
+    <ImageView
+        android:id="@+id/loading_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/details_label"
-        android:visibility="gone"
+        android:id="@+id/loading_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="13sp"/>
-</com.kaopiz.kprogresshud.BackgroundLayout>
+        android:layout_below="@id/loading_image"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:text="@string/please_wait"
+        android:textColor="#3A0137" />
+
+    <TextView
+        android:id="@+id/loading_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loading_title"
+        android:layout_centerHorizontal="true"
+        android:text="@string/please_wait"
+        android:textColor="#3A0137" />
+
+    <!--View is added so loading message doesn't get hidden-->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loading_message" />
+
+</RelativeLayout>

@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -30,7 +31,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class KProgressHUD {
 
@@ -72,6 +76,7 @@ public class KProgressHUD {
     /**
      * Create a new HUD. Have the same effect as the constructor.
      * For convenient only.
+     *
      * @param context Activity context that the HUD bound to
      * @return An unique HUD instance
      */
@@ -79,19 +84,20 @@ public class KProgressHUD {
         return new KProgressHUD(context);
     }
 
-  /**
-   * Create a new HUD. specify the HUD style (if you use a custom view, you need {@code KProgressHUD.create(Context context)}).
-   *
-   * @param context Activity context that the HUD bound to
-   * @param style One of the KProgressHUD.Style values
-   * @return An unique HUD instance
-   */
+    /**
+     * Create a new HUD. specify the HUD style (if you use a custom view, you need {@code KProgressHUD.create(Context context)}).
+     *
+     * @param context Activity context that the HUD bound to
+     * @param style   One of the KProgressHUD.Style values
+     * @return An unique HUD instance
+     */
     public static KProgressHUD create(Context context, Style style) {
         return new KProgressHUD(context).setStyle(style);
     }
 
     /**
      * Specify the HUD style (not needed if you use a custom view)
+     *
      * @param style One of the KProgressHUD.Style values
      * @return Current HUD
      */
@@ -118,6 +124,7 @@ public class KProgressHUD {
 
     /**
      * Specify the dim area around the HUD, like in Dialog
+     *
      * @param dimAmount May take value from 0 to 1. Default to 0 (no dimming)
      * @return Current HUD
      */
@@ -130,7 +137,8 @@ public class KProgressHUD {
 
     /**
      * Set HUD size. If not the HUD view will use WRAP_CONTENT instead
-     * @param width in dp
+     *
+     * @param width  in dp
      * @param height in dp
      * @return Current HUD
      */
@@ -140,9 +148,9 @@ public class KProgressHUD {
     }
 
     /**
-     * @deprecated  As of release 1.1.0, replaced by {@link #setBackgroundColor(int)}
      * @param color ARGB color
      * @return Current HUD
+     * @deprecated As of release 1.1.0, replaced by {@link #setBackgroundColor(int)}
      */
     @Deprecated
     public KProgressHUD setWindowColor(int color) {
@@ -152,6 +160,7 @@ public class KProgressHUD {
 
     /**
      * Specify the HUD background color
+     *
      * @param color ARGB color
      * @return Current HUD
      */
@@ -162,6 +171,7 @@ public class KProgressHUD {
 
     /**
      * Specify corner radius of the HUD (default is 10)
+     *
      * @param radius Corner radius in dp
      * @return Current HUD
      */
@@ -172,6 +182,7 @@ public class KProgressHUD {
 
     /**
      * Change animation speed relative to default. Used with indeterminate style
+     *
      * @param scale Default is 1. If you want double the speed, set the param at 2.
      * @return Current HUD
      */
@@ -182,6 +193,7 @@ public class KProgressHUD {
 
     /**
      * Optional label to be displayed.
+     *
      * @return Current HUD
      */
     public KProgressHUD setLabel(String label) {
@@ -189,17 +201,20 @@ public class KProgressHUD {
         return this;
     }
 
+
     /**
-     * Optional label to be displayed
+     * Optional image to be displayed
+     *
      * @return Current HUD
      */
-    public KProgressHUD setLabel(String label, int color) {
-        mProgressDialog.setLabel(label, color);
+    public KProgressHUD setLoadingImage(Drawable drawable) {
+        mProgressDialog.setLoadingImage(drawable);
         return this;
     }
 
     /**
      * Optional detail description to be displayed on the HUD
+     *
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel) {
@@ -209,6 +224,7 @@ public class KProgressHUD {
 
     /**
      * Optional detail description to be displayed
+     *
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel, int color) {
@@ -218,6 +234,7 @@ public class KProgressHUD {
 
     /**
      * Max value for use in one of the determinate styles
+     *
      * @return Current HUD
      */
     public KProgressHUD setMaxProgress(int maxProgress) {
@@ -235,6 +252,7 @@ public class KProgressHUD {
 
     /**
      * Provide a custom view to be displayed.
+     *
      * @param view Must not be null
      * @return Current HUD
      */
@@ -249,7 +267,7 @@ public class KProgressHUD {
 
     /**
      * Specify whether this HUD can be cancelled by using back button (default is false)
-     *
+     * <p>
      * Setting a cancelable to true with this method will set a null callback,
      * clearing any callback previously set with
      * {@link #setCancellable(DialogInterface.OnCancelListener)}
@@ -266,9 +284,8 @@ public class KProgressHUD {
      * Specify a callback to run when using the back button (default is null)
      *
      * @param listener The code that will run if the user presses the back
-     * button. If you pass null, the dialog won't be cancellable, just like
-     * if you had called {@link #setCancellable(boolean)} passing false.
-     *
+     *                 button. If you pass null, the dialog won't be cancellable, just like
+     *                 if you had called {@link #setCancellable(boolean)} passing false.
      * @return Current HUD
      */
     public KProgressHUD setCancellable(DialogInterface.OnCancelListener listener) {
@@ -279,6 +296,7 @@ public class KProgressHUD {
 
     /**
      * Specify whether this HUD closes itself if progress reaches max. Default is true.
+     *
      * @return Current HUD
      */
     public KProgressHUD setAutoDismiss(boolean isAutoDismiss) {
@@ -292,6 +310,7 @@ public class KProgressHUD {
      * not be shown at all.
      * This may be used to prevent HUD display for very short tasks.
      * Defaults to 0 (no grace time).
+     *
      * @param graceTimeMs Grace time in milliseconds
      * @return Current HUD
      */
@@ -326,7 +345,7 @@ public class KProgressHUD {
 
     public void dismiss() {
         mFinished = true;
-        if (mContext !=null && !((Activity)mContext).isFinishing() && mProgressDialog != null && mProgressDialog.isShowing()) {
+        if (mContext != null && !((Activity) mContext).isFinishing() && mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
         if (mGraceTimer != null) {
@@ -340,16 +359,16 @@ public class KProgressHUD {
         private Determinate mDeterminateView;
         private Indeterminate mIndeterminateView;
         private View mView;
-		private TextView mLabelText;
+        private TextView mLabelText;
         private TextView mDetailsText;
+        private ImageView mImageLabel;
         private String mLabel;
         private String mDetailsLabel;
-        private FrameLayout mCustomViewContainer;
-        private BackgroundLayout mBackgroundLayout;
+        private Drawable drawable;
         private int mWidth, mHeight;
-        private int mLabelColor = Color.WHITE;
-        private int mDetailColor = Color.WHITE;
-		
+        private int mLabelColor = Color.parseColor("#3A0137");
+        private int mDetailColor = Color.parseColor("#3A0137");
+
         public ProgressDialog(Context context) {
             super(context);
         }
@@ -359,6 +378,10 @@ public class KProgressHUD {
             super.onCreate(savedInstanceState);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             setContentView(R.layout.kprogresshud_hud);
+            if (getWindow() != null) {
+                getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.MATCH_PARENT);
+            }
 
             Window window = getWindow();
             window.setBackgroundDrawable(new ColorDrawable(0));
@@ -374,14 +397,6 @@ public class KProgressHUD {
         }
 
         private void initViews() {
-            mBackgroundLayout = (BackgroundLayout) findViewById(R.id.background);
-            mBackgroundLayout.setBaseColor(mWindowColor);
-            mBackgroundLayout.setCornerRadius(mCornerRadius);
-            if (mWidth != 0) {
-                updateBackgroundSize();
-            }
-
-            mCustomViewContainer = (FrameLayout) findViewById(R.id.container);
             addViewToFrame(mView);
 
             if (mDeterminateView != null) {
@@ -391,24 +406,17 @@ public class KProgressHUD {
                 mIndeterminateView.setAnimationSpeed(mAnimateSpeed);
             }
 
-            mLabelText = (TextView) findViewById(com.kaopiz.kprogresshud.R.id.label);
+            mLabelText = (TextView) findViewById(com.kaopiz.kprogresshud.R.id.loading_title);
             setLabel(mLabel, mLabelColor);
-            mDetailsText = (TextView) findViewById(com.kaopiz.kprogresshud.R.id.details_label);
+            mDetailsText = (TextView) findViewById(com.kaopiz.kprogresshud.R.id.loading_message);
             setDetailsLabel(mDetailsLabel, mDetailColor);
+            mImageLabel = (ImageView) findViewById(com.kaopiz.kprogresshud.R.id.loading_image);
         }
 
         private void addViewToFrame(View view) {
             if (view == null) return;
             int wrapParam = ViewGroup.LayoutParams.WRAP_CONTENT;
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(wrapParam, wrapParam);
-            mCustomViewContainer.addView(view, params);
-        }
-
-        private void updateBackgroundSize() {
-            ViewGroup.LayoutParams params = mBackgroundLayout.getLayoutParams();
-            params.width = Helper.dpToPixel(mWidth, getContext());
-            params.height = Helper.dpToPixel(mHeight, getContext());
-            mBackgroundLayout.setLayoutParams(params);
         }
 
         public void setProgress(int progress) {
@@ -430,7 +438,6 @@ public class KProgressHUD {
                 }
                 mView = view;
                 if (isShowing()) {
-                    mCustomViewContainer.removeAllViews();
                     addViewToFrame(view);
                 }
             }
@@ -444,6 +451,21 @@ public class KProgressHUD {
                     mLabelText.setVisibility(View.VISIBLE);
                 } else {
                     mLabelText.setVisibility(View.GONE);
+                }
+            }
+        }
+
+        public void setLoadingImage(Drawable drawable) {
+            this.drawable = drawable;
+            if (mImageLabel != null) {
+                if (drawable != null) {
+                    Glide.with(getContext())
+                            .asGif()
+                            .load(drawable)
+                            .into(mImageLabel);
+                    mImageLabel.setVisibility(View.VISIBLE);
+                } else {
+                    mImageLabel.setVisibility(View.GONE);
                 }
             }
         }
@@ -491,9 +513,6 @@ public class KProgressHUD {
         public void setSize(int width, int height) {
             mWidth = width;
             mHeight = height;
-            if (mBackgroundLayout != null) {
-                updateBackgroundSize();
-            }
         }
     }
 }
