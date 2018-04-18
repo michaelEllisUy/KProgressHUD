@@ -408,11 +408,12 @@ public class KProgressHUD {
                 mIndeterminateView.setAnimationSpeed(mAnimateSpeed);
             }
 
-            mLabelText = (TextView) findViewById(com.kaopiz.kprogresshud.R.id.loading_title);
+            mLabelText = findViewById(R.id.loading_title);
             setLabel(mLabel, mLabelColor);
-            mDetailsText = (TextView) findViewById(com.kaopiz.kprogresshud.R.id.loading_message);
+            mDetailsText = findViewById(R.id.loading_message);
             setDetailsLabel(mDetailsLabel, mDetailColor);
-            mImageLabel = (ImageView) findViewById(com.kaopiz.kprogresshud.R.id.loading_image);
+            mImageLabel = findViewById(R.id.loading_image);
+            setLoadingImage(drawableRes);
         }
 
         private void addViewToFrame(View view) {
@@ -460,7 +461,7 @@ public class KProgressHUD {
         public void setLoadingImage(@DrawableRes int drawableRes) {
             this.drawableRes = drawableRes;
             if (mImageLabel != null) {
-                if (drawableRes == -1) {
+                if (drawableRes != -1) {
                     Glide.with(getContext())
                             .asGif()
                             .load(drawableRes)
